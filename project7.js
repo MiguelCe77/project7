@@ -45,9 +45,26 @@ document.addEventListener("mousemove", function(e) {
     var xpos = pt.x
     var ypos = pt.y
     var newcircle = document.createElementNS(namespace,"circle")
+    var newrect = document.createElementNS(namespace,"rect")
+
+    //Circle
     newcircle.setAttribute("cx", pt.x)
     newcircle.setAttribute("cy", pt.y)
     newcircle.setAttribute("fill", document.getElementById("colorSelect").value)
-    newcircle.setAttribute("r", "25")
-    screen.appendChild(newcircle)
+    newcircle.setAttribute("r", document.getElementById("sizeSelect").value)
+
+    //Rectangle
+    newrect.setAttribute("x", pt.x)
+    newrect.setAttribute("y", pt.y)
+    newrect.setAttribute("fill", document.getElementById("colorSelect").value)
+    newrect.setAttribute("width", document.getElementById("sizeSelect").value)
+    newrect.setAttribute("height", document.getElementById("sizeSelect").value)
+
+    if (document.getElementById("shapeSelect").value == "circle") {
+      screen.appendChild(newcircle)
+    }
+
+    else if (document.getElementById("shapeSelect").value == "square") {
+      screen.appendChild(newrect)
+    }
 })
