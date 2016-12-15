@@ -1,5 +1,7 @@
 var screen = document.getElementById("screen")
 var namespace = "http://www.w3.org/2000/svg"
+var drawing = false
+var eraserOn = false
 
 // utility function
 function transformPoint(event) {
@@ -32,39 +34,46 @@ function drawCircle(x, y, size, color) {
 
 // Step 3: Event listeners
 document.addEventListener("mousedown", function(e) {
-  // what do you want to do when the user presses down
-  // on the mouse button?
+  drawing = true
 })
 
 document.addEventListener("mouseup", function(e) {
-
+  drawing = false
 })
 
 document.addEventListener("mousemove", function(e) {
+
     var pt = transformPoint(e, screen)
     var xpos = pt.x
     var ypos = pt.y
     var newcircle = document.createElementNS(namespace,"circle")
     var newrect = document.createElementNS(namespace,"rect")
 
-    //Circle
-    newcircle.setAttribute("cx", pt.x)
-    newcircle.setAttribute("cy", pt.y)
-    newcircle.setAttribute("fill", document.getElementById("colorSelect").value)
-    newcircle.setAttribute("r", document.getElementById("sizeSelect").value)
+      if (drawing == true) {
 
-    //Rectangle
-    newrect.setAttribute("x", pt.x)
-    newrect.setAttribute("y", pt.y)
-    newrect.setAttribute("fill", document.getElementById("colorSelect").value)
-    newrect.setAttribute("width", document.getElementById("sizeSelect").value)
-    newrect.setAttribute("height", document.getElementById("sizeSelect").value)
+      //Circle
+      newcircle.setAttribute("cx", pt.x)
+      newcircle.setAttribute("cy", pt.y)
+      newcircle.setAttribute("fill", document.getElementById("colorSelect").value)
+      newcircle.setAttribute("r", document.getElementById("sizeSelect").value)
 
-    if (document.getElementById("shapeSelect").value == "circle") {
-      screen.appendChild(newcircle)
-    }
+      //Rectangle
+      newrect.setAttribute("x", pt.x)
+      newrect.setAttribute("y", pt.y)
+      newrect.setAttribute("fill", document.getElementById("colorSelect").value)
+      newrect.setAttribute("width", document.getElementById("sizeSelect").value)
+      newrect.setAttribute("height", document.getElementById("sizeSelect").value)
 
-    else if (document.getElementById("shapeSelect").value == "square") {
-      screen.appendChild(newrect)
-    }
-})
+      if (document.getElementById("shapeSelect").value == "circle") {
+        screen.appendChild(newcircle)
+      }
+
+      else if (document.getElementById("shapeSelect").value == "square") {
+        screen.appendChild(newrect)
+      }
+      }
+
+      if (eraserOn == true){
+
+      }
+    })
