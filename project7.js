@@ -1,7 +1,10 @@
 var screen = document.getElementById("screen")
 var namespace = "http://www.w3.org/2000/svg"
+
+
 var drawing = false
 var eraserOn = false
+
 
 // utility function
 function transformPoint(event) {
@@ -41,6 +44,10 @@ document.addEventListener("mouseup", function(e) {
   drawing = false
 })
 
+  if (document.getElementById("eraserSelect").value == "white"){
+    eraserOn = true
+  }
+
 document.addEventListener("mousemove", function(e) {
 
     var pt = transformPoint(e, screen)
@@ -48,32 +55,36 @@ document.addEventListener("mousemove", function(e) {
     var ypos = pt.y
     var newcircle = document.createElementNS(namespace,"circle")
     var newrect = document.createElementNS(namespace,"rect")
+    var colorSelected = document.getElementById("colorSelect").value
+    var shapeSelected = document.getElementById("shapeSelect").value
+    var sizeSelected =  document.getElementById("sizeSelect").value
 
       if (drawing == true) {
 
       //Circle
       newcircle.setAttribute("cx", pt.x)
       newcircle.setAttribute("cy", pt.y)
-      newcircle.setAttribute("fill", document.getElementById("colorSelect").value)
-      newcircle.setAttribute("r", document.getElementById("sizeSelect").value)
+      newcircle.setAttribute("fill", colorSelected)
+      newcircle.setAttribute("r", sizeSelected)
 
       //Rectangle
       newrect.setAttribute("x", pt.x)
       newrect.setAttribute("y", pt.y)
-      newrect.setAttribute("fill", document.getElementById("colorSelect").value)
-      newrect.setAttribute("width", document.getElementById("sizeSelect").value)
-      newrect.setAttribute("height", document.getElementById("sizeSelect").value)
+      newrect.setAttribute("fill", colorSelected)
+      newrect.setAttribute("width", sizeSelected)
+      newrect.setAttribute("height", sizeSelected)
 
-      if (document.getElementById("shapeSelect").value == "circle") {
+      if (shapeSelected == "circle") {
         screen.appendChild(newcircle)
       }
 
-      else if (document.getElementById("shapeSelect").value == "square") {
+      else if (shapeSelected == "square") {
         screen.appendChild(newrect)
       }
       }
 
       if (eraserOn == true){
+          newrect.setAttribute("fill", document.getElementById("colorSelect").value)
 
       }
     })
